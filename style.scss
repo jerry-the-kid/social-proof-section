@@ -1,0 +1,238 @@
+$color-very-dark-magenta: hsl(300, 43%, 22%);
+$color-very-soft-pink: hsl(333, 80%, 67%);
+$color-dark-grayish-magenta: hsl(303, 10%, 53%);
+$color-light-grayish-magenta: hsl(300, 24%, 96%);
+$color-white: hsl(0, 0%, 100%);
+
+$font-family: "Spartan", sans-serif;
+$font-weight: (
+  light: 400,
+  medium: 500,
+  bold: 700,
+);
+
+$bp-largest: 68.75em;
+$bp-medium: 51.25em;
+
+@function getWeight($type) {
+  @return map-get($font-weight, $type);
+}
+
+@mixin mq($size) {
+  @media only screen and (max-width: $size) {
+    @content;
+  }
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+
+  @media only screen and (min-width: 100em) {
+    font-size: 80%;
+  }
+  @include mq($bp-largest) {
+    font-size: 50%;
+  }
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  font-family: $font-family;
+  font-weight: getWeight(medium);
+  line-height: 1.6;
+  font-size: 1.5rem;
+
+  background-image: url(images/bg-pattern-top-desktop.svg),
+    url(images/bg-pattern-bottom-desktop.svg);
+  background-repeat: no-repeat;
+  background-position: 0 0, 100% 120%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @include mq($bp-medium) {
+    background-image: url(images/bg-pattern-top-mobile.svg),
+      url(images/bg-pattern-bottom-mobile.svg);
+    background-position: 0 0, 100% 100%;
+  }
+}
+
+.container {
+  max-width: 115rem;
+  width: 90%;
+  margin: 0 auto;
+
+  @include mq($bp-medium) {
+    max-width: 60rem;
+    width: 95%;
+  }
+}
+
+.description {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 5rem;
+  margin: 10rem 0;
+
+  @include mq($bp-medium) {
+    grid-template-columns: auto;
+    grid-row-gap: 3rem;
+    text-align: center;
+  }
+
+  &__left {
+    padding-right: 4rem;
+    color: $color-dark-grayish-magenta;
+    font-weight: getWeight(medium);
+
+    @include mq($bp-medium) {
+      padding: 0;
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  width: fit-content;
+
+  background-color: $color-light-grayish-magenta;
+  padding: 1.5rem 3rem;
+  max-width: 45rem;
+  width: 100%;
+  border-radius: 10px;
+
+  @include mq($bp-medium) {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: $color-very-dark-magenta;
+    margin-left: 2rem;
+  }
+
+  .stars {
+    display: flex;
+    align-items: center;
+    @include mq($bp-medium) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  img {
+    height: 1.5rem;
+  }
+
+  img:not(:last-child) {
+    margin-right: 0.7rem;
+  }
+
+  &--1 {
+    align-self: flex-start;
+
+    @include mq($bp-medium) {
+      align-self: center;
+    }
+  }
+  &--2 {
+    align-self: center;
+  }
+
+  &--3 {
+    align-self: flex-end;
+    @include mq($bp-medium) {
+      align-self: center;
+    }
+  }
+}
+
+.heading-main {
+  font-size: 4.5rem;
+  line-height: 1.1;
+  padding-right: 4rem;
+  margin-bottom: 1rem;
+  color: $color-very-dark-magenta;
+
+  @include mq($bp-medium) {
+    padding: 0;
+    margin-bottom: 3rem;
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 3rem;
+  margin-bottom: 7rem;
+
+  @include mq($bp-medium) {
+    grid-template-columns: 1fr;
+    // max-width: 45rem;
+    // width: 95%;
+  }
+}
+
+.card {
+  padding: 4rem 3rem;
+  background-color: $color-very-dark-magenta;
+  color: white;
+  font-size: 1.3rem;
+  border-radius: 7px;
+
+  &__figure {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-column-gap: 2rem;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+
+  &__user-img {
+    grid-row: 1 / span 2;
+    height: 4rem;
+    border-radius: 100%;
+  }
+
+  &__user-name,
+  &__job {
+    font-size: 1.4rem;
+  }
+
+  &__job {
+    font-weight: getWeight(medium);
+    color: $color-very-soft-pink;
+  }
+
+  &--1 {
+    transform: translateY(-7%);
+  }
+
+  &--3 {
+    transform: translateY(7%);
+  }
+}
